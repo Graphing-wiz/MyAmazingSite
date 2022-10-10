@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js">
+</script>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<title>My Amazing Website</title>
+<style>
+    @keyframes bgcolor {
+        0% {
+            background-color: #0095ff
+        }
+
+        30% {
+            background-color: #55ff00
+        }
+
+        60% {
+            background-color: #ff6600
+        }
+
+        90% {
+            background-color: rgb(255, 0, 43)
+        }
+
+        100% {
+            background-color: #8000ff
+        }
+    }
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .container {
+        display: block;
+        position: relative;
+        max-width: 300px;
+    }
+
+
+    .overlay {
+        position: absolute;
+        bottom: 0;
+        background: rgb(0, 0, 0);
+        background: rgba(0, 0, 0, 0.5);
+        /* Black see-through */
+        color: #f1f1f1;
+        width: 100%;
+        transition: .5s ease;
+        opacity: 0;
+        color: white;
+        font-size: 20px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .container:hover .overlay {
+        opacity: 1;
+    }
+
+    .paragraph {
+        font-family: "Lucida Console", "Courier New", monospace;
+        font-size: 30px;
+        -webkit-animation: bgcolor 20s infinite;
+        animation: bgcolor 10s infinite;
+        -webkit-animation-direction: alternate;
+        animation-direction: alternate;
+        font-style: bold;
+        text-align: center;
+        border-style: inset;
+        border-width: 10px;
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 50px;
+        font-family: "Lucida Console", "Courier New", monospace;
+    }
+
+    .img {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        filter: saturate(var(output));
+        border-radius: 8px;
+        box-shadow: 0 4px 8px 0 rgb(0, 0, 0.19), 0 6px 20px 0 rgb(0, 0, 0.19);
+    }
+
+    .slidecontainer {
+        width: 100%;
+    }
+
+    .slider {
+        border-radius: 8px;
+        -webkit-appearance: none;
+        width: 75%;
+        height: 25px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+
+    .slider:hover {
+        opacity: 1;
+        background-color: #f35;
+    }
+
+    .slider::-webkit-slider-thumb {
+        border-radius: 50%;
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background: #000000;
+        cursor: pointer;
+    }
+
+    .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #000000;
+        cursor: pointer;
+    }
+
+    .slider2 {
+        border-radius: 8px;
+        -webkit-appearance: none;
+        width: 75%;
+        height: 25px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+    }
+
+    .slider2:hover {
+        opacity: 1;
+        background-color: rgb(0, 255, 34);
+    }
+
+    .slider2::-webkit-slider-thumb {
+        border-radius: 50%;
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background: #000000;
+        cursor: pointer;
+    }
+
+    .slider2::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #000000;
+        cursor: pointer;
+    }
+
+    .button {
+        border-radius: 8px;
+        background-color: #000000;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+    }
+
+    .placeholder {
+        text-align: center;
+    }
+</style>
+
+<body style="background-color:rgba(0, 0, 0, 0.2)">
+    <div class="w3-container w3-teal">
+        <h1>✨Hello World!✨</h1>
+        <br><br>
+    </div>
+    <div class="paragraph">
+        <br>
+        <p1 style="color: white; cursor: default;" id="siteInfo" onmouseover="makeBold()" onmouseleave="makeNormal()">
+            This is my amazing website!</p1>
+    </div>
+    <div class="placeholder">
+        <p2 id="output3">Saturation value: 1</p2>
+        <br>
+        <button id="reset" class="button" onmouseover="changeOppacity()" style="opacity: 1;"
+            onmouseleave="changeOppacityp()" onclick="reset()">Reset</button>
+        <br>
+        <p3 style="text-align: left;">Saturation:</p3>
+        <input type="range" min="1" max="100" value="50" class="slider2" id="myRange">
+        <br>
+        <p4 style="text-align: left;">Blur:</p4>
+        <input type="range" min="1" max="100" value="50" class="slider" id="myRange2">
+        <br>
+        <div class="container">
+            <img onclick="newImage()" id="output2" class="img" src="https://picsum.photos/1336/500?random=2">
+            <div class="overlay">Click for a new image</div>
+        </div>
+    </div>
+</body>
+<br>
+<script>
+    var slider = document.getElementById("myRange");
+    slider.value = 0;
+    var output2 = document.getElementById("output2");
+    var output3 = document.getElementById("output3");
+    // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider.oninput = function () {
+        output2.style.filter = `saturate(${this.value / 10})`;
+        output3.innerHTML = `Saturation value: ${this.value}`;
+    }
+    var slider2 = document.getElementById("myRange2");
+    slider2.value = 0;
+    var output2 = document.getElementById("output2");
+    var output4 = document.getElementById("output3");
+    // Display the default slider value
+
+    // Update the current slider value (each time you drag the slider handle)
+    slider2.oninput = function () {
+        output2.style.filter = `blur(${this.value / 10}px)`;
+        output4.innerHTML = `Blur value: ${this.value}`;
+    }
+    function reset() {
+        var slider = document.getElementById("myRange");
+        var output3 = document.getElementById("output3");
+        var output4 = document.getElementById("myRange2");
+        slider.value = 0;
+        output4.value = 0;
+        var output2 = document.getElementById("output2");
+        output2.style.filter = "saturate(1)"
+        output3.innerHTML = `Saturation value: ${slider.value}`;
+    }
+    function getRandomInt(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+    function newImage() {
+        var output2 = document.getElementById("output2");
+        output2.src = "https://picsum.photos/1336/500?random=" + getRandomInt(1, 5000);
+    }
+    function changeOppacity() {
+        document.getElementById('reset').style.opacity -= 0.5;
+    }
+    function changeOppacityp() {
+        document.getElementById('reset').style.opacity = 1;
+    }
+    function makeBold() {
+        let txt = document.getElementById("siteInfo")
+        txt.style.fontStyle = "italic"
+    }
+    function makeNormal() {
+        let txt = document.getElementById("siteInfo")
+        txt.style.fontStyle = "normal"
+    }
+</script>
+
+</html>
